@@ -48,8 +48,9 @@ module TicketMaster::Provider
 
      def self.create(*options)
         ticket = API.new(*options)
-        ticketn = self.new ticket
         ticket.save
+        
+        ticketn = self.new ticket
         ticketn
       end
 
