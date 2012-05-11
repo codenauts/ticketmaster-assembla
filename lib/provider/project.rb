@@ -4,7 +4,23 @@ module TicketMaster::Provider
     #
     #
     class Project < TicketMaster::Provider::Base::Project
-      API = AssemblaAPI::Project # The class to access the api's projects
+      def initialize(*object) 
+        if object.first
+          object = object.first
+          unless object.is_a? Hash
+            hash = {:id => object.id,
+                    :name => object.name,
+                    :description => object.description,
+                    :created_at => object.created_at,
+                    :updated_at => object.updated_at}
+
+          else
+            hash = object
+          end
+          super hash
+        end
+      end
+
       # declare needed overloaded methods here
       def name
         self[:name]

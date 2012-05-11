@@ -4,7 +4,26 @@ module TicketMaster::Provider
     #
     
     class Ticket < TicketMaster::Provider::Base::Ticket
-      API = AssemblaAPI::Ticket # The class to access the api's tickets
+      def initialize(*object)
+        if object.first
+          object = object.first
+          @system_data = {:client => object}
+          unless object.is_a? Hash
+            hash = {
+              :id => object.id,
+              :description => object.description,
+              :title => object.summary,
+              :status => object.status,
+              :priority => object.priority,
+              :project_id => object.id
+            }
+          else
+            hash = object
+          end
+          super hash
+        end
+      end
+
       # declare needed overloaded methods here
       def title
         self.summary
@@ -47,7 +66,7 @@ module TicketMaster::Provider
       end
 
      def self.create(*options)
-        ticket = API.new(*options)
+        ticket = AssemblaAPI::Ticket.new(*options)
         ticket.save
         
         ticketn = self.new ticket

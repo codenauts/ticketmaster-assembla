@@ -18,8 +18,10 @@ module TicketMaster::Provider
       auth = @authentication
       if auth.username.blank? and auth.password.blank?
         raise "Please provide login and password"
+      elsif auth.site.blank?
+        raise "Please provide site url"
       end
-      ::AssemblaAPI.authenticate(auth.username, auth.password)
+      ::AssemblaAPI.authenticate(auth.username, auth.password, auth.site)
     end
     
     # declare needed overloaded methods here
