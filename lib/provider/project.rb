@@ -25,6 +25,11 @@ module TicketMaster::Provider
         AssemblaAPI::Project.find(:all).collect { |prj| Project.new(prj) }
       end
 
+      def self.find_by_id(id)
+        prj = AssemblaAPI::Project.find(:first, :params => { :id => id })
+        Project.new(prj) if prj.present?
+      end
+
       # declare needed overloaded methods here
       def name
         self[:name]
