@@ -10,12 +10,11 @@ module TicketMaster::Provider
           @system_data = {:client => object}
           unless object.is_a? Hash
             hash = {
-              :id => object.id,
+              :id => object.number,
               :description => object.description,
               :title => object.summary,
               :status => object.status,
-              :priority => object.priority,
-              :project_id => object.id
+              :priority => object.priority
             }
           else
             hash = object

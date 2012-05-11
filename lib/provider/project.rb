@@ -21,6 +21,10 @@ module TicketMaster::Provider
         end
       end
 
+      def self.all
+        AssemblaAPI::Project.find(:all).collect { |prj| Project.new(prj) }
+      end
+
       # declare needed overloaded methods here
       def name
         self[:name]
