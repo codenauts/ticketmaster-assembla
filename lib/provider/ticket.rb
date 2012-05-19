@@ -73,7 +73,7 @@ module TicketMaster::Provider
       end
 
       def self.find_by_id(project_id, id)
-        ticket = AssemblaAPI::Ticket.find(:first, :params => { :space_id => project_id, :ticket_number => id })
+        ticket = AssemblaAPI::Ticket.find(id, :params => { :space_id => project_id })
         self.new(ticket) if ticket.present?
       end
     end
