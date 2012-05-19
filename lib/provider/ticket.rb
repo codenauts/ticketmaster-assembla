@@ -72,6 +72,10 @@ module TicketMaster::Provider
         ticketn
       end
 
+      def self.find_by_id(project_id, id)
+        ticket = AssemblaAPI::Ticket.find(id)
+        self.new(ticket) if ticket.present?
+      end
     end
   end
 end
